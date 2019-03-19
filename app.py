@@ -9,5 +9,5 @@ from rest import app
 #app.run()
 WSGIServer((
     "0.0.0.0", # str(HOST)
-    80,  # int(PORT)
+    6000,  # int(PORT)
 ), app.wsgi_app).serve_forever()
