@@ -62,7 +62,7 @@ class unique_labels(Resource):
 class getpro(Resource):
 
     def get(self):
-        data = sd('sqllite', dbname=os.path.join(os.path.curdir, 'projects.sqlite'))
+        data = sd('sqlite', dbname=os.path.join(os.path.curdir, 'projects.sqlite'))
         return data.select_projects()
 
 class setpro(Resource):
@@ -70,7 +70,7 @@ class setpro(Resource):
     def put(self):
         print(request.args['project'])
         print(request.args['description'])
-        data = sd('sqllite', dbname=os.path.join(os.path.curdir, 'projects.sqlite'))
+        data = sd('sqlite', dbname=os.path.join(os.path.curdir, 'projects.sqlite'))
         data.add_projects(request.args['project'], request.args['description'])
 
 

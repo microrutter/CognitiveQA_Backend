@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+import simplejson
 
 # Global Variables
 SQLITE = "sqlite"
@@ -126,7 +127,14 @@ class Sqlconnection:
 
         with self.db_engine.connect() as connection:
             try:
-                return connection.execute(query)
+                result = connection.execute(query)
+                jsonstring = []
+                for r in result:
+                    js = []
+                    for e in r:
+                        js.append(e)
+                    jsonstring.append(js)
+                return jsonstring
             except Exception as e:
                 print(e)
 
@@ -148,8 +156,8 @@ class Sqlconnection:
     """
     def add_projects(self, ident, desc):
         # Insert Data
-        query = "INSERT INTO {TBL_USR}(identifier,text) " \
-                "VALUES ({ID}, {TEX});".format(TBL_USR=PROJECT, ID=ident, TEX=desc)
+        query = "INSERT INTO {TBL_USR}(identifier, text) " \
+                "VALUES({ID}, {TEX});".format(TBL_USR=PROJECT, ID=ident, TEX=desc)
         self.execute_query(query)
 
     """
