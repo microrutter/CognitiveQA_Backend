@@ -2,3 +2,4 @@ gevent
 sqlalchemy
 Flask~=1.0.2
 flask_restful~=0.3.6
+simplejson
