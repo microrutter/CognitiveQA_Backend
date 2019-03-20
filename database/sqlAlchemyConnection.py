@@ -271,10 +271,3 @@ class Sqlconnection:
                                              LAB=lab,
                                              ISS=iss)
         self.execute_query(query)
-
-    def sample_update(self):
-        # Update Data
-        query = "UPDATE {} set first_name='XXXX' WHERE id={id}"\
-            .format(USERS, id=3)
-        self.execute_query(query)
-        self.print_all_data(USERS)
