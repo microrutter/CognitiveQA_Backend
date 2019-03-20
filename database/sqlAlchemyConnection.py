@@ -138,19 +138,6 @@ class Sqlconnection:
             except Exception as e:
                 print(e)
 
-    def sample_delete(self):
-        # Delete Data by Id
-        query = "DELETE FROM {} WHERE id=3".format(USERS)
-        self.execute_query(query)
-        self.print_all_data(USERS)
-
-        # Delete All Data
-        '''
-        query = "DELETE FROM {}".format(USERS)
-        self.execute_query(query)
-        self.print_all_data(USERS)
-        '''
-
     """
         Insert project to project database
     """

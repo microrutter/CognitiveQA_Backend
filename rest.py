@@ -68,10 +68,21 @@ class getpro(Resource):
 class setpro(Resource):
 
     def put(self):
-        print(request.args['project'])
-        print(request.args['description'])
         data = sd('sqlite', dbname=os.path.join(os.path.curdir, 'projects.sqlite'))
         data.add_projects(request.args['project'], request.args['description'])
+
+class get_kmeans_results(Resource):
+
+    def get(self):
+        data = sd('sqlite', dbname=os.path.join(os.path.curdir, request.args['project'] + '.sqlite'))
+        return data.select_label_kmeans()
+
+class put_cluster_dict(Resource):
+
+    def put(self):
+        data = sd('sqlite', dbname=os.path.join(os.path.curdir, request.args['project'] + '.sqlite'))
+        data.fill_dict(request.args['label'], request.args['cluster'])
+
 
 
 
@@ -95,6 +106,10 @@ api.add_resource(unique_labels, '/labels')
 api.add_resource(getpro, '/projects')
 
 api.add_resource(setpro, '/add')
+
+api.add_resource(get_kmeans_results, '/results')
+
+api.add_resource(put_cluster_dict, '/cluster')
 
 if __name__ == '__main__':
     app.run(debug=True)
