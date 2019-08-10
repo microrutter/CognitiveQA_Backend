@@ -134,9 +134,6 @@ class put_percent_cluster(Resource):
         data.insert_label_per_k(request.args["label"], request.args["percent"])
 
 
-(self, iss, sum, desc, sumdesc, lab)
-
-
 class put_sprint_display(Resource):
     def put(self):
         data = sd(
@@ -150,9 +147,6 @@ class put_sprint_display(Resource):
             request.args["sumdesc"],
             request.args["label"],
         )
-
-
-label_sprint_add_to_teaching(self, identifier, label)
 
 
 class put_sprint_teaching(Resource):
