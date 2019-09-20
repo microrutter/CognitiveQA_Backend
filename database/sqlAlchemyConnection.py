@@ -144,7 +144,7 @@ class Sqlconnection:
     def add_projects(self, ident, desc):
         # Insert Data
         query = "INSERT INTO {TBL_USR}(identifier, text) " \
-                "VALUES({ID}, {TEX});".format(TBL_USR=PROJECT, ID=ident, TEX=desc)
+                "VALUES({ID}, {TEX});".format(TBL_USR=PROJECT, ID="\"" + ident + "\"", TEX="\"" + desc + "\"")
         self.execute_query(query)
 
     """
@@ -152,15 +152,15 @@ class Sqlconnection:
     """
     def fill_dict(self, lab, clu):
         query = "INSERT INTO {TBL_USR}(label,cluster) " \
-                "VALUES({LAB},{CLU})".format(TBL_USR=DICTIONARY, LAB=lab, CLU=clu)
+                "VALUES({LAB},{CLU})".format(TBL_USR=DICTIONARY, LAB="\"" + lab + "\"", CLU="\"" + clu + "\"")
         self.execute_query(query)
 
     """
         Insert percentage for clustering defects
     """
     def insert_label_per_k(self, lab, per):
-        query = "INSERT INTO {TBL_USR}(label,percent) " \
-                "VALUES({LAB},{PER})".format(TBL_USR=KMEANSDEFECTPERCENTAGE, LAB=lab, PER=per)
+        query = "INSERT INTO {TBL_USR}(label,percentage) " \
+                "VALUES({LAB},{PER})".format(TBL_USR=KMEANSDEFECTPERCENTAGE, LAB="\"" + lab + "\"", PER="\"" + per + "\"")
         self.execute_query(query)
 
     """
@@ -170,11 +170,11 @@ class Sqlconnection:
         query = "INSERT INTO " \
                 "{TBL_USR}(Issue, Summary, Description, SumDesc, label) " \
                 "VALUES({ISS},{SUM},{DESC},{SUMDESC},{LAB})".format(TBL_USR=CURRENTWORK,
-                                                                    ISS=iss,
-                                                                    SUM=sum,
-                                                                    DESC=desc,
-                                                                    SUMDESC=sumdesc,
-                                                                    LAB=lab)
+                                                                    ISS="\"" + iss + "\"",
+                                                                    SUM="\"" + sum + "\"",
+                                                                    DESC="\"" + desc + "\"",
+                                                                    SUMDESC="\"" + sumdesc + "\"",
+                                                                    LAB="\"" + lab + "\"")
         self.execute_query(query)
 
     """
@@ -183,10 +183,10 @@ class Sqlconnection:
     def insert_sprint_for_teaching(self, iss, sum, desc, lab):
         query = "INSERT INTO {TBL_USR}(Issue, Summary, Description, label) " \
                 "VALUES({ISS},{SUM},{DESC},{LAB})".format(TBL_USR=TEACHING,
-                                                          ISS=iss,
-                                                          SUM=sum,
-                                                          DESC=desc,
-                                                          LAB=lab)
+                                                          ISS="\"" + iss + "\"",
+                                                          SUM="\"" + sum + "\"",
+                                                          DESC="\"" + desc + "\"",
+                                                          LAB="\"" + lab + "\"")
         self.execute_query(query)
 
     """
