@@ -97,6 +97,11 @@ class setpro(Resource):
         data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
         data.add_projects(request.args["project"], request.args["build"])
         
+class getbuild(Resource):
+    def get(self):
+        data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
+        return data.select_project_build(request.args["project"])
+        
 class updatepro(Resource):
     def put(self):
         data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
@@ -183,6 +188,8 @@ api.add_resource(unlabeled, "/trainsprint")
 api.add_resource(unique_labels, "/labels")
 
 api.add_resource(getpro, "/projects")
+
+api.add_resource(getbuild, "/build")
 
 api.add_resource(setpro, "/add")
 
