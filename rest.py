@@ -95,7 +95,12 @@ class getpro(Resource):
 class setpro(Resource):
     def put(self):
         data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
-        data.add_projects(request.args["project"], request.args["description"])
+        data.add_projects(request.args["project"], request.args["build"])
+        
+class updatepro(Resource):
+    def put(self):
+        data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
+        data.update_project_build(request.args["build"], request.args["project"])
 
 
 class get_kmeans_results(Resource):
@@ -180,6 +185,8 @@ api.add_resource(unique_labels, "/labels")
 api.add_resource(getpro, "/projects")
 
 api.add_resource(setpro, "/add")
+
+api.add_resource(updatepro, "/updateproject")
 
 api.add_resource(get_kmeans_results, "/results")
 

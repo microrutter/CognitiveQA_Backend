@@ -97,7 +97,7 @@ class Sqlconnection:
             PROJECT,
             metadata,
             Column("identifier", String, primary_key=True),
-            Column("text", String)
+            Column("model", String),
         )
         try:
             metadata.create_all(self.db_engine)
@@ -143,7 +143,7 @@ class Sqlconnection:
     """
     def add_projects(self, ident, desc):
         # Insert Data
-        query = "INSERT INTO {TBL_USR}(identifier, text) " \
+        query = "INSERT INTO {TBL_USR}(identifier,model) " \
                 "VALUES({ID}, {TEX});".format(TBL_USR=PROJECT, ID="\"" + ident + "\"", TEX="\"" + desc + "\"")
         self.execute_query(query)
 
@@ -214,6 +214,15 @@ class Sqlconnection:
     def select_projects(self):
         query = "SELECT identifier FROM {TBL_USR}".format(TBL_USR=PROJECT)
         return self.execute_query(query)
+    
+    """
+        Select all available projects
+    """
+    def select_project_build(self, pro:str):
+        query = "SELECT model " \
+                "FROM {TBL_USR} " \
+                "WHERE project={project}".format(TBL_USR=PROJECT, project="\"" + pro + "\"")
+        return self.execute_query(query)
 
     """
         Selects the clustering results from the table
@@ -270,4 +279,15 @@ class Sqlconnection:
                 "WHERE Issue = {ISS}".format(TBL_USR=TEACHING,
                                              LAB=lab,
                                              ISS=iss)
+        self.execute_query(query)
+        
+    """
+        Update teaching database
+    """
+    def update_project_build(self, build, project):
+        query = "UPDATE {TBL_USR} " \
+                "SET model = {BUILD} " \
+                "WHERE Identifier = {ISS}".format(TBL_USR=PROJECT,
+                                             BUILD="\"" + build + "\"",
+                                             ISS="\"" + project + "\"")
         self.execute_query(query)
