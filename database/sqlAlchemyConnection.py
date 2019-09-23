@@ -221,7 +221,7 @@ class Sqlconnection:
     def select_project_build(self, pro:str):
         query = "SELECT model " \
                 "FROM {TBL_USR} " \
-                "WHERE project={project}".format(TBL_USR=PROJECT, project="\"" + pro + "\"")
+                "WHERE identifier={project}".format(TBL_USR=PROJECT, project="\"" + pro + "\"")
         return self.execute_query(query)
 
     """
