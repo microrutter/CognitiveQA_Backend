@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, REAL
 from sqlalchemy.ext.declarative import declarative_base
 import simplejson
 
@@ -14,6 +14,7 @@ KMEANSDEFECTPERCENTAGE = "kmeansdefper"
 CURRENTWORK = "currentwork"
 TEACHING = "teaching"
 PROJECT = "project"
+AVERAGE = "average"
 
 
 class Sqlconnection:
@@ -50,6 +51,12 @@ class Sqlconnection:
             metadata,
             Column("label", String, primary_key=True),
             Column("percent", String),
+        )
+        average = Table(
+            AVERAGE,
+            metadata,
+            Column("label", String, primary_key=True),
+            Column("average", REAL),
         )
         dictionary = Table(
             DICTIONARY,
@@ -161,6 +168,14 @@ class Sqlconnection:
     def insert_label_per_k(self, lab, per):
         query = "INSERT INTO {TBL_USR}(label,percentage) " \
                 "VALUES({LAB},{PER})".format(TBL_USR=KMEANSDEFECTPERCENTAGE, LAB="\"" + lab + "\"", PER="\"" + per + "\"")
+        self.execute_query(query)
+        
+    """
+        Insert average 
+    """
+    def insert_label_average(self, per):
+        query = "INSERT INTO {TBL_USR}(label,average) " \
+                "VALUES({LAB},{PER})".format(TBL_USR=AVERAGE, LAB="Done", PER="\"" + per + "\"")
         self.execute_query(query)
 
     """
