@@ -173,9 +173,9 @@ class Sqlconnection:
     """
         Insert average 
     """
-    def insert_label_average(self, per):
+    def insert_label_average(self, month,per):
         query = "INSERT INTO {TBL_USR}(label,average) " \
-                "VALUES({LAB},{PER})".format(TBL_USR=AVERAGE, LAB="Done", PER="\"" + per + "\"")
+                "VALUES({LAB},{PER})".format(TBL_USR=AVERAGE, LAB="\"" + month + "\"", PER="\"" + per + "\"")
         self.execute_query(query)
 
     """

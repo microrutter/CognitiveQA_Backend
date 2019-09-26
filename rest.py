@@ -107,7 +107,6 @@ class updatepro(Resource):
         data = sd("sqlite", dbname=os.path.join(os.path.curdir, "projects.sqlite"))
         data.update_project_build(request.args["build"], request.args["project"])
 
-
 class get_kmeans_results(Resource):
     def get(self):
         data = sd(
@@ -124,6 +123,14 @@ class put_cluster_dict(Resource):
             dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
         )
         data.fill_dict(request.args["label"], request.args["cluster"])
+        
+class put_month(Resource):
+    def put(self):
+        data = sd(
+            "sqlite",
+            dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
+        )
+        data.insert_label_average(request.args["month"], request.args["avg"])
 
 
 class get_cluster_label_all(Resource):
@@ -194,6 +201,8 @@ api.add_resource(getbuild, "/build")
 api.add_resource(setpro, "/add")
 
 api.add_resource(updatepro, "/updateproject")
+
+api.add_resource(put_month, "/addmonth")
 
 api.add_resource(get_kmeans_results, "/results")
 
