@@ -14,7 +14,7 @@ KMEANSDEFECTPERCENTAGE = "kmeansdefper"
 CURRENTWORK = "currentwork"
 TEACHING = "teaching"
 PROJECT = "project"
-AVERAGE = "average"
+AVERAGE = "ave"
 
 
 class Sqlconnection:
@@ -56,7 +56,7 @@ class Sqlconnection:
             AVERAGE,
             metadata,
             Column("label", String, primary_key=True),
-            Column("average", REAL),
+            Column("average", String),
         )
         dictionary = Table(
             DICTIONARY,
@@ -244,6 +244,13 @@ class Sqlconnection:
     """
     def select_label_kmeans(self):
         query = "SELECT * FROM {TBL_USR}".format(TBL_USR=KMEANSDEFECTPERCENTAGE)
+        return self.execute_query(query)
+
+    """
+        Select all from the average table
+    """
+    def select_average(self):
+        query = "SELECT * FROM {TBL_USR}".format(TBL_USR=AVERAGE)
         return self.execute_query(query)
 
     """

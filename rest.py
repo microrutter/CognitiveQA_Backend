@@ -76,6 +76,14 @@ class unlabeled(Resource):
         )
         return data.get_un_labelled_sprint()
 
+class average(Resource):
+    def get(self):
+        data = sd(
+            "sqlite",
+            dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
+        )
+        return data.select_average()
+
 
 class unique_labels(Resource):
     def get(self):
@@ -205,6 +213,8 @@ api.add_resource(updatepro, "/updateproject")
 api.add_resource(put_month, "/addmonth")
 
 api.add_resource(get_kmeans_results, "/results")
+
+api.add_resource(average, "/average")
 
 api.add_resource(put_cluster_dict, "/cluster")
 
