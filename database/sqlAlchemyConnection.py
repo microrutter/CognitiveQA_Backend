@@ -57,6 +57,7 @@ class Sqlconnection:
             metadata,
             Column("label", String, primary_key=True),
             Column("average", String),
+            Column("total", String),
         )
         dictionary = Table(
             DICTIONARY,
@@ -173,9 +174,9 @@ class Sqlconnection:
     """
         Insert average 
     """
-    def insert_label_average(self, month,per):
-        query = "INSERT INTO {TBL_USR}(label,average) " \
-                "VALUES({LAB},{PER})".format(TBL_USR=AVERAGE, LAB="\"" + month + "\"", PER="\"" + per + "\"")
+    def insert_label_average(self, month,per,total):
+        query = "INSERT INTO {TBL_USR}(label,average,total) " \
+                "VALUES({LAB},{PER},{TOT})".format(TBL_USR=AVERAGE, LAB="\"" + month + "\"", PER="\"" + per + "\"", TOT="\"" + total + "\"")
         self.execute_query(query)
 
     """

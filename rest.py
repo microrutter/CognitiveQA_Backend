@@ -138,7 +138,7 @@ class put_month(Resource):
             "sqlite",
             dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
         )
-        data.insert_label_average(request.args["month"], request.args["avg"])
+        data.insert_label_average(request.args["month"], request.args["avg"], request.args["total"])
 
 
 class get_cluster_label_all(Resource):
