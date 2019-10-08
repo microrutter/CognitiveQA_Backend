@@ -76,13 +76,21 @@ class unlabeled(Resource):
         )
         return data.get_un_labelled_sprint()
 
-class average(Resource):
+class averagetodo(Resource):
     def get(self):
         data = sd(
             "sqlite",
             dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
         )
-        return data.select_average()
+        return data.select_average_todo()
+    
+class averageinprogress(Resource):
+    def get(self):
+        data = sd(
+            "sqlite",
+            dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
+        )
+        return data.select_average_inprogress()
 
 
 class unique_labels(Resource):
@@ -132,13 +140,21 @@ class put_cluster_dict(Resource):
         )
         data.fill_dict(request.args["label"], request.args["cluster"])
         
-class put_month(Resource):
+class put_month_todo(Resource):
     def put(self):
         data = sd(
             "sqlite",
             dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
         )
-        data.insert_label_average(request.args["month"], request.args["avg"], request.args["total"])
+        data.insert_label_average_todo(request.args["month"], request.args["avg"], request.args["total"])
+        
+class put_month_inprogress(Resource):
+    def put(self):
+        data = sd(
+            "sqlite",
+            dbname=os.path.join(os.path.curdir, request.args["project"] + ".sqlite"),
+        )
+        data.insert_label_average_inprogress(request.args["month"], request.args["avg"], request.args["total"])
 
 
 class get_cluster_label_all(Resource):
@@ -210,11 +226,15 @@ api.add_resource(setpro, "/add")
 
 api.add_resource(updatepro, "/updateproject")
 
-api.add_resource(put_month, "/addmonth")
+api.add_resource(put_month_todo, "/addmonthtodo")
+
+api.add_resource(put_month_inprogress, "/addmonthinprogress")
 
 api.add_resource(get_kmeans_results, "/results")
 
-api.add_resource(average, "/average")
+api.add_resource(averagetodo, "/averagetodo")
+
+api.add_resource(averageinprogress, "/averageinprogress")
 
 api.add_resource(put_cluster_dict, "/cluster")
 

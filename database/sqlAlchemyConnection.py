@@ -14,7 +14,8 @@ KMEANSDEFECTPERCENTAGE = "kmeansdefper"
 CURRENTWORK = "currentwork"
 TEACHING = "teaching"
 PROJECT = "project"
-AVERAGE = "ave"
+AVERAGETODO = "avetodo"
+AVERAGEINPROGRESS = "aveinprog"
 
 
 class Sqlconnection:
@@ -52,8 +53,15 @@ class Sqlconnection:
             Column("label", String, primary_key=True),
             Column("percent", String),
         )
-        average = Table(
-            AVERAGE,
+        averagetodo = Table(
+            AVERAGETODO,
+            metadata,
+            Column("label", String, primary_key=True),
+            Column("average", String),
+            Column("total", String),
+        )
+        averageinprogress = Table(
+            AVERAGEINPROGRESS,
             metadata,
             Column("label", String, primary_key=True),
             Column("average", String),
@@ -172,11 +180,19 @@ class Sqlconnection:
         self.execute_query(query)
         
     """
-        Insert average 
+        Insert average todo
     """
-    def insert_label_average(self, month,per,total):
+    def insert_label_average_todo(self, month,per,total):
         query = "INSERT INTO {TBL_USR}(label,average,total) " \
-                "VALUES({LAB},{PER},{TOT})".format(TBL_USR=AVERAGE, LAB="\"" + month + "\"", PER="\"" + per + "\"", TOT="\"" + total + "\"")
+                "VALUES({LAB},{PER},{TOT})".format(TBL_USR=AVERAGETODO, LAB="\"" + month + "\"", PER="\"" + per + "\"", TOT="\"" + total + "\"")
+        self.execute_query(query)
+        
+    """
+        Insert average in progress
+    """
+    def insert_label_average_inprogress(self, month,per,total):
+        query = "INSERT INTO {TBL_USR}(label,average,total) " \
+                "VALUES({LAB},{PER},{TOT})".format(TBL_USR=AVERAGEINPROGRESS, LAB="\"" + month + "\"", PER="\"" + per + "\"", TOT="\"" + total + "\"")
         self.execute_query(query)
 
     """
@@ -248,10 +264,17 @@ class Sqlconnection:
         return self.execute_query(query)
 
     """
-        Select all from the average table
+        Select all from the average todo table
     """
-    def select_average(self):
-        query = "SELECT * FROM {TBL_USR}".format(TBL_USR=AVERAGE)
+    def select_average_todo(self):
+        query = "SELECT * FROM {TBL_USR}".format(TBL_USR=AVERAGETODO)
+        return self.execute_query(query)
+    
+    """
+        Select all from the average inprogress table
+    """
+    def select_average_inprogress(self):
+        query = "SELECT * FROM {TBL_USR}".format(TBL_USR=AVERAGEINPROGRESS)
         return self.execute_query(query)
 
     """
