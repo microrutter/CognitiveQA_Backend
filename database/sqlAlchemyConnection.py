@@ -14,6 +14,7 @@ TEACHING = "teaching"
 PROJECT = "project"
 AVERAGETODO = "avetodo"
 AVERAGEINPROGRESS = "aveinprog"
+USER = "user"
 
 
 class Sqlconnection:
@@ -166,4 +167,31 @@ class Sqlconnection:
         myquery = { "identifier": project }
         newvalues = { "$set": { "model": build } }
         mycol.update_one(myquery, newvalues)
+        
+    def create_jira_user(self, user:str, password:str, base:str, login:str, token:str):
+        """
+        Creates and stores a JIRA user in mongo
+        :Author: Wayne Rutter
+        :Params: user String username
+        :Params: password String password
+        :Params: base String url of JIRA server
+        :Params: login String username of JIRA account
+        :Params: token String access token for JIRA account
+        """
+        jira = {"base": base, "login": login, "token": token}
+        mydict = {"user": user, "password": password, "jira": jira}
+        mycol = self.db_engine[USER]
+        mycol.insert_one(mydict)
+        
+    def select_jira_user(self, user:str):
+        """
+        Creates and stores a JIRA user in mongo
+        :Author: Wayne Rutter
+        :Params: user String username
+        :Params: password String password
+        """
+        myquery = {"user": user}
+        mycol = self.db_engine[USER]
+        return dumps(list(mycol.find(myquery)))
+        
 

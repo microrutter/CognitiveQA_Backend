@@ -118,6 +118,16 @@ class put_sprint_teaching(Resource):
         data.label_sprint_add_to_teaching(
             request.args["identifier"], request.args["label"]
         )
+        
+class put_jira_user(Resource):
+    def put(self):
+        data = sd(dbname="jira_users")
+        data.create_jira_user(user=request.args["user"], password=request.args["password"], base=request.args["base"], login=request.args["login"], token=request.args["token"])
+        
+class get_jira_user(Resource):
+    def get(self):
+        data = sd(dbname="jira_users")
+        return data.select_jira_user(user=request.args["user"])
 
 
 """
@@ -157,6 +167,10 @@ api.add_resource(put_percent_cluster, "/addpercent")
 api.add_resource(put_sprint_display, "/addsprintdisplay")
 
 api.add_resource(put_sprint_teaching, "/addsprintteach")
+
+api.add_resource(put_jira_user, "/jira/user/create")
+
+api.add_resource(get_jira_user, "/jira/user/get")
 
 if __name__ == "__main__":
     app.run(debug=True)
