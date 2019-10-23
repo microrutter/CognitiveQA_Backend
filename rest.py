@@ -128,6 +128,11 @@ class get_jira_user(Resource):
     def get(self):
         data = sd(dbname="jira_users")
         return data.select_jira_user(user=request.args["user"])
+    
+class get_jira_user_id(Resource):
+    def get(self):
+        data = sd(dbname="jira_users")
+        return data.select_jira_user_id(user=request.args["id"])
 
 
 """
@@ -171,6 +176,8 @@ api.add_resource(put_sprint_teaching, "/addsprintteach")
 api.add_resource(put_jira_user, "/jira/user/create")
 
 api.add_resource(get_jira_user, "/jira/user/get")
+
+api.add_resource(get_jira_user_id, "/jira/user/get/id")
 
 if __name__ == "__main__":
     app.run(debug=True)

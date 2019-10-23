@@ -2,6 +2,7 @@ import simplejson
 import pymongo
 import json
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 
 
 # Table Names
@@ -191,6 +192,17 @@ class Sqlconnection:
         :Params: password String password
         """
         myquery = {"user": user}
+        mycol = self.db_engine[USER]
+        return dumps(list(mycol.find(myquery)))
+    
+    def select_jira_user_id(self, user:str):
+        """
+        Creates and stores a JIRA user in mongo
+        :Author: Wayne Rutter
+        :Params: user String username
+        :Params: password String password
+        """
+        myquery = {"_id": ObjectId(user)}
         mycol = self.db_engine[USER]
         return dumps(list(mycol.find(myquery)))
         
