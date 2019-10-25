@@ -205,5 +205,16 @@ class Sqlconnection:
         myquery = {"_id": ObjectId(user)}
         mycol = self.db_engine[USER]
         return dumps(list(mycol.find(myquery)))
-        
+    
+    def update_user_trello_key(self, user: str, key: str):
+        """
+        Update the build state of a project
+        :Author: Wayne Rutter
+        :Params: build String build state 
+        :Params: project String the project you want to change
+        """
+        mycol = self.db_engine[PROJECT]
+        myquery = {"_id": ObjectId(user)}
+        newvalues = { "$addToSet": { "trello": key } }
+        mycol.update_one(myquery, newvalues)
 

@@ -133,6 +133,11 @@ class get_jira_user_id(Resource):
     def get(self):
         data = sd(dbname="jira_users")
         return data.select_jira_user_id(user=request.args["id"])
+    
+class put_trello_key(Resource):
+    def put(self):
+        data = sd(dbname="jira_users")
+        return data.update_user_trello_key(user=request.args["id"], key=request.args["key"])
 
 
 """
@@ -178,6 +183,8 @@ api.add_resource(put_jira_user, "/jira/user/create")
 api.add_resource(get_jira_user, "/jira/user/get")
 
 api.add_resource(get_jira_user_id, "/jira/user/get/id")
+
+api.add_resource(put_trello_key, "/jira/user/add/trello")
 
 if __name__ == "__main__":
     app.run(debug=True)
