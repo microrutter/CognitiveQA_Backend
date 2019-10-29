@@ -169,18 +169,14 @@ class Sqlconnection:
         newvalues = { "$set": { "model": build } }
         mycol.update_one(myquery, newvalues)
         
-    def create_jira_user(self, user:str, password:str, base:str, login:str, token:str):
+    def create_user(self, user:str, password:str):
         """
         Creates and stores a JIRA user in mongo
         :Author: Wayne Rutter
         :Params: user String username
         :Params: password String password
-        :Params: base String url of JIRA server
-        :Params: login String username of JIRA account
-        :Params: token String access token for JIRA account
         """
-        jira = {"base": base, "login": login, "token": token}
-        mydict = {"user": user, "password": password, "jira": jira}
+        mydict = {"user": user, "password": password}
         mycol = self.db_engine[USER]
         mycol.insert_one(mydict)
         
@@ -216,5 +212,19 @@ class Sqlconnection:
         mycol = self.db_engine[PROJECT]
         myquery = {"_id": ObjectId(user)}
         newvalues = { "$addToSet": { "trello": key } }
+        mycol.update_one(myquery, newvalues)
+
+    def update_user_jira(self, user: str, base:str, login:str, token:str):
+        """
+        Update the jira user with jira details
+        :Author: Wayne Rutter
+        :Params: base String url of JIRA server
+        :Params: login String username of JIRA account
+        :Params: token String access token for JIRA account
+        """
+        mycol = self.db_engine[PROJECT]
+        jira = {"base": base, "login": login, "token": token}
+        myquery = {"_id": ObjectId(user)}
+        newvalues = { "$addToSet": { "jira": jira } }
         mycol.update_one(myquery, newvalues)
 

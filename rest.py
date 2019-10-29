@@ -119,10 +119,10 @@ class put_sprint_teaching(Resource):
             request.args["identifier"], request.args["label"]
         )
         
-class put_jira_user(Resource):
+class put_user(Resource):
     def put(self):
         data = sd(dbname="jira_users")
-        data.create_jira_user(user=request.args["user"], password=request.args["password"], base=request.args["base"], login=request.args["login"], token=request.args["token"])
+        data.create_user(user=request.args["user"], password=request.args["password"])
         
 class get_jira_user(Resource):
     def get(self):
@@ -138,6 +138,11 @@ class put_trello_key(Resource):
     def put(self):
         data = sd(dbname="jira_users")
         return data.update_user_trello_key(user=request.args["id"], key=request.args["key"])
+
+class put_jira(Resource):
+    def put(self):
+        data = sd(dbname="jira_users")
+        return data.update_user_jira(user=request.args["id"], base=request.args["base"], login=request.args["login"], token=request.args["token"])
 
 
 """
@@ -178,13 +183,15 @@ api.add_resource(put_sprint_display, "/addsprintdisplay")
 
 api.add_resource(put_sprint_teaching, "/addsprintteach")
 
-api.add_resource(put_jira_user, "/jira/user/create")
+api.add_resource(put_user, "/jira/user/create")
 
 api.add_resource(get_jira_user, "/jira/user/get")
 
 api.add_resource(get_jira_user_id, "/jira/user/get/id")
 
 api.add_resource(put_trello_key, "/jira/user/add/trello")
+
+api.add_resource(put_jira, "/jira/user/add/jira")
 
 if __name__ == "__main__":
     app.run(debug=True)
