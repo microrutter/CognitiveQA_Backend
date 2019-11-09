@@ -209,7 +209,7 @@ class Sqlconnection:
         :Params: build String build state 
         :Params: project String the project you want to change
         """
-        mycol = self.db_engine[PROJECT]
+        mycol = self.db_engine[USER]
         myquery = {"_id": ObjectId(user)}
         newvalues = { "$addToSet": { "trello": key } }
         mycol.update_one(myquery, newvalues)
@@ -222,7 +222,7 @@ class Sqlconnection:
         :Params: login String username of JIRA account
         :Params: token String access token for JIRA account
         """
-        mycol = self.db_engine[PROJECT]
+        mycol = self.db_engine[USER]
         jira = {"base": base, "login": login, "token": token}
         myquery = {"_id": ObjectId(user)}
         newvalues = { "$addToSet": { "jira": jira } }
