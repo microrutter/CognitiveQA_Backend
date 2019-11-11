@@ -182,10 +182,9 @@ class Sqlconnection:
         
     def select_jira_user(self, user:str):
         """
-        Creates and stores a JIRA user in mongo
+        Get user via username
         :Author: Wayne Rutter
         :Params: user String username
-        :Params: password String password
         """
         myquery = {"user": user}
         mycol = self.db_engine[USER]
@@ -193,10 +192,9 @@ class Sqlconnection:
     
     def select_jira_user_id(self, user:str):
         """
-        Creates and stores a JIRA user in mongo
+        Gets User via id
         :Author: Wayne Rutter
-        :Params: user String username
-        :Params: password String password
+        :Params: user String id of user
         """
         myquery = {"_id": ObjectId(user)}
         mycol = self.db_engine[USER]
@@ -204,20 +202,21 @@ class Sqlconnection:
     
     def update_user_trello_key(self, user: str, key: str):
         """
-        Update the build state of a project
+        Update the user with trello details
         :Author: Wayne Rutter
-        :Params: build String build state 
-        :Params: project String the project you want to change
+        :Params: user String id of user 
+        :Params: key String key of trello account
         """
         mycol = self.db_engine[USER]
         myquery = {"_id": ObjectId(user)}
-        newvalues = { "$addToSet": { "trello": key } }
+        newvalues = { "$set": { "trello": key } }
         mycol.update_one(myquery, newvalues)
 
     def update_user_jira(self, user: str, base:str, login:str, token:str):
         """
         Update the jira user with jira details
         :Author: Wayne Rutter
+        :Params: user String id of the user
         :Params: base String url of JIRA server
         :Params: login String username of JIRA account
         :Params: token String access token for JIRA account
@@ -225,6 +224,6 @@ class Sqlconnection:
         mycol = self.db_engine[USER]
         jira = {"base": base, "login": login, "token": token}
         myquery = {"_id": ObjectId(user)}
-        newvalues = { "$addToSet": { "jira": jira } }
+        newvalues = { "$set": { "jira": jira } }
         mycol.update_one(myquery, newvalues)
 
