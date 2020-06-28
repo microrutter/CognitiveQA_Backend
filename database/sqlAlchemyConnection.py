@@ -29,7 +29,7 @@ class Sqlconnection:
         :Params: table_name String name of collection to be dropped
         """
         mycol = self.db_engine[table_name]
-        mycol.drop()
+        mycol.drop_database()
 
     def add_projects(self, ident: str, desc: str):
         """

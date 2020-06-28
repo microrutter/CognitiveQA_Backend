@@ -25,9 +25,8 @@ class get_cluster_label(Resource):
 
 class drop_table(Resource):
     @staticmethod
-    def post():
-        data = sd(dbname=request.args["project"])
-        data.drop_table(request.args["table"])
+    def delete():
+        data.drop_table(request.args["project"])
 
 class averagetodo(Resource):
     @staticmethod
@@ -170,7 +169,7 @@ class put_jira(Resource):
     Add end points to api
 """
 
-api.add_resource(drop_table, "/drop")
+api.add_resource(drop_table, "/drop_table")
 
 api.add_resource(unique_labels, "/labels")
 
