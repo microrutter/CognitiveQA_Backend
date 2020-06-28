@@ -1,6 +1,4 @@
-import simplejson
 import pymongo
-import json
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 

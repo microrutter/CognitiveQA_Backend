@@ -1,7 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from database.sqlAlchemyConnection import Sqlconnection as sd
-import os
 
 
 app = Flask(__name__)
