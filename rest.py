@@ -26,7 +26,8 @@ class get_cluster_label(Resource):
 class drop_table(Resource):
     @staticmethod
     def delete():
-        data.drop_table(request.args["project"])
+        data = sd(dbname=request.args["project"])
+        data.drop_table()
 
 class averagetodo(Resource):
     @staticmethod
