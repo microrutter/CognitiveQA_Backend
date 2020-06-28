@@ -22,14 +22,13 @@ class Sqlconnection:
         mongo = pymongo.MongoClient("mongodb://172.17.0.4:27017/")
         self.db_engine = mongo[dbname]
 
-    def drop_table(self, table_name: str):
+    def drop_table(self):
         """
         Drops any given collection
         :Author: Wayne Rutter
         :Params: table_name String name of collection to be dropped
         """
-        mycol = self.db_engine[table_name]
-        mycol.drop()
+        self.db_engine.drop_database()
 
     def add_projects(self, ident: str, desc: str):
         """
