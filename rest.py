@@ -17,105 +17,105 @@ Global Functions
 
 
 class get_cluster_label(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.select_dict_label(request.args["cluster"])
 
 
 class drop_table(Resource):
-    @staticmethod
+    
     def delete():
         data = sd(dbname=request.args["project"])
         data.drop_table()
 
 class averagetodo(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.select_average_todo()
     
 class averageinprogress(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.select_average_inprogress()
 
 
 class unique_labels(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.get_unique_labels()
 
 
 class getpro(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname="projects")
         return data.select_projects()
 
 
 class setpro(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname="projects")
         data.add_projects(request.args["project"], request.args["build"])
         
 class getbuild(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname="projects")
         return data.select_project_build(request.args["project"])
         
 class updatepro(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname="projects")
         data.update_project_build(request.args["build"], request.args["project"])
 
 class get_kmeans_results(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.select_label_kmeans()
 
 
 class put_cluster_dict(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.fill_dict(request.args["label"], request.args["cluster"])
         
 class put_month_todo(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.insert_label_average_todo(request.args["month"], request.args["avg"], request.args["total"])
         
 class put_month_inprogress(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.insert_label_average_inprogress(request.args["month"], request.args["avg"], request.args["total"])
 
 
 class get_cluster_label_all(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname=request.args["project"])
         return data.select_dict_label_all()
 
 
 class put_percent_cluster(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.insert_label_per_k(request.args["label"], request.args["percent"])
 
 
 class put_sprint_display(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.insert_sprint_for_display(
@@ -128,7 +128,7 @@ class put_sprint_display(Resource):
 
 
 class put_sprint_teaching(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname=request.args["project"])
         data.label_sprint_add_to_teaching(
@@ -136,31 +136,31 @@ class put_sprint_teaching(Resource):
         )
         
 class put_user(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname="jira_users")
         data.create_user(user=request.args["user"], password=request.args["password"])
         
 class get_jira_user(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname="jira_users")
         return data.select_jira_user(user=request.args["user"])
     
 class get_jira_user_id(Resource):
-    @staticmethod
+    
     def get():
         data = sd(dbname="jira_users")
         return data.select_jira_user_id(user=request.args["id"])
     
 class put_trello_key(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname="jira_users")
         return data.update_user_trello_key(user=request.args["id"], key=request.args["key"])
 
 class put_jira(Resource):
-    @staticmethod
+    
     def put():
         data = sd(dbname="jira_users")
         return data.update_user_jira(user=request.args["id"], base=request.args["base"], login=request.args["login"], token=request.args["token"])
